@@ -4,3 +4,6 @@ This repository contains my personal portfolio website showcasing my projects, s
 It highlights my work as a developer, the technologies I use, and the problems I enjoy solving.
 
 The portfolio is designed to be simple, fast, and easy to navigate, with a focus on clean UI and well-structured code.
+
+## Live Demo
+[View Portfolio](https://adnankhan03-portfolio.netlify.app)
