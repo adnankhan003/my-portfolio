@@ -1,0 +1,64 @@
+/* Mobile First - Base Styles */
+.root-app {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.screen {
+  width: 100%;
+height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================
+   TABLET - 768px and up
+   ============================================ */
+@media (min-width: 48rem) {
+  .root-app {
+    gap: 0.875rem;
+  }
+
+  .screen {
+    height: 100vh;
+  }
+}
+
+/* ============================================
+   LAPTOP/SMALL DESKTOP - 1024px and up
+   ============================================ */
+@media (min-width: 64rem) {
+  .root-app {
+    gap: 1rem;
+  }
+
+  .screen {
+    height: 100vh;
+  }
+}
+
+/* ============================================
+   LARGE DESKTOP - 1440px and up
+   ============================================ */
+@media (min-width: 90rem) {
+  .root-app {
+    gap: 1.25rem;
+  }
+
+  .screen {
+    height: 100vh;
+  }
+}
+
+/* ============================================
+   EXTRA LARGE - 1920px and up
+   ============================================ */
+@media (min-width: 120rem) {
+  .root-app {
+    gap: 1.5rem;
+  }
+
+  .screen {
+    height: 100vh;
+  }
+}

@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Code Pro", monospace;
+  --p-color: #018790;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: url("/icons/space-new.gif");
+  background-size: cover;
+}
+
+/* Hidden state before animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.3s ease, transform 1.3s ease;
+}
+
+/* When the element becomes visible */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

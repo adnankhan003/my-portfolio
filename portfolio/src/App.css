@@ -1,0 +1,25 @@
+.root-app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .screen {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 430px) {
+  .root-app {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}
