@@ -5,5 +5,4 @@ It highlights my work as a developer, the technologies I use, and the problems I
 
 The portfolio is designed to be simple, fast, and easy to navigate, with a focus on clean UI and well-structured code.
 
-## Live Demo
-[View Portfolio](https://adnankhan03-portfolio.netlify.app)
+[View Portfolio](https://adnankhan03-portfolio.netlify.app) 🚀
