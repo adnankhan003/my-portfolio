@@ -82,6 +82,58 @@ export default function Home({
     }, []);
   }
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const revealRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const reveal = revealRef.current;
+
+    if (!wrapper || !reveal) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let x = 0;
+    let y = 0;
+    let visible = false;
+
+    const animate = () => {
+      x += (mouseX - x) * 0.1;
+      y += (mouseY - y) * 0.1;
+
+      reveal.style.setProperty("--x", `${x}px`);
+      reveal.style.setProperty("--y", `${y}px`);
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const move = (e: MouseEvent) => {
+      const rect = wrapper.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+
+      if (!visible) {
+        visible = true;
+        reveal.classList.add("active");
+      }
+    };
+
+    const leave = () => {
+      visible = false;
+      reveal.classList.remove("active");
+    };
+
+    wrapper.addEventListener("mousemove", move);
+    wrapper.addEventListener("mouseleave", leave);
+
+    return () => {
+      wrapper.removeEventListener("mousemove", move);
+      wrapper.removeEventListener("mouseleave", leave);
+    };
+  }, []);
+
   return (
     <>
       <div className="root-home">
@@ -236,9 +288,14 @@ export default function Home({
               {/* <div className="pfp">
                 <img src="/icons/pfp.png" alt="Adnan Khan's face" />
               </div> */}
-              <div className="pfp-wrapper">
-                <img src="/icons/pfp.png" alt="pfp" className="pfp" />
-                {/* rotating disc */}
+              <div className="pfp-wrapper" ref={wrapperRef}>
+                {/* Base image */}
+                <img src="/icons/new-pfp.png" alt="pfp" className="pfp" />
+
+                {/* Reveal image */}
+                <div className="pfp-reveal" ref={revealRef}></div>
+
+                {/* Rotating disc */}
                 <div className="rotating-disc">
                   <span className="arc arc1"></span>
                   <span className="arc arc2"></span>

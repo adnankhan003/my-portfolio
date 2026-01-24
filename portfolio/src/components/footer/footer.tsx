@@ -18,7 +18,7 @@ export default function Footer({ showGoTop }: { showGoTop: boolean }) {
           <div className="label" onClick={handleLabelClick}>
             Made by <strong>Adnan Khan🐾</strong>
             <div className={`face-hover ${isFaceVisible ? "clicked" : ""}`}>
-              <img src="/icons/pfp-footer.png" alt="Adnan Khan's face" />
+              <img src="/icons/pfp.png" alt="Adnan Khan's face" />
             </div>
           </div>
           <div className="social-links">
