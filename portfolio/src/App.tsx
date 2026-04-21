@@ -70,12 +70,12 @@ function App() {
       <div className="screen">
         <Projects projectRef={projectRef} />
       </div>
-      {/* <div className="screen"> */}
-      <Skills skillsRef={skillsRef} />
-      {/* </div> */}
-      {/* <div className="screen"> */}
-      <Contacts contactsRef={contactsRef} />
-      {/* </div> */}
+      <div className="screen">
+        <Skills skillsRef={skillsRef} />
+      </div>
+      <div className="screen">
+        <Contacts contactsRef={contactsRef} />
+      </div>
       <Footer showGoTop={showGoTop} />
     </div>
   );

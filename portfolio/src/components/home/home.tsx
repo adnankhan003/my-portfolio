@@ -1,6 +1,7 @@
 import ALogo from "/icons/a-icon-white.svg";
 import "./home1.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import AnimatedCursorText from "./backend-text";
 
 export default function Home({
   scrollToAbout,
@@ -9,6 +10,7 @@ export default function Home({
   scrollToContacts,
 }: any) {
   const logoRef = useRef<HTMLImageElement>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useRevealOnScroll();
 
@@ -214,10 +216,16 @@ export default function Home({
             </div>
 
             {/* Mobile three-dots menu */}
-            <div className="mobile-menu">
-              <div className="dots">
+            <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+              <button
+                className="dots"
+                type="button"
+                aria-label="Toggle mobile navigation"
+                aria-expanded={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              >
                 <img src="/icons/menu-new.svg" alt="" />
-              </div>
+              </button>
 
               <div className="dropdown">
                 <a href="/" className="dropdown-item">
@@ -228,6 +236,7 @@ export default function Home({
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToAbout();
+                    setIsMobileMenuOpen(false);
                   }}
                 >
                   About
@@ -237,6 +246,7 @@ export default function Home({
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToProjects();
+                    setIsMobileMenuOpen(false);
                   }}
                 >
                   Projects
@@ -246,6 +256,7 @@ export default function Home({
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToskills();
+                    setIsMobileMenuOpen(false);
                   }}
                 >
                   Skills
@@ -255,6 +266,7 @@ export default function Home({
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToContacts();
+                    setIsMobileMenuOpen(false);
                   }}
                 >
                   Contacts
@@ -305,7 +317,7 @@ export default function Home({
               </div>
             </div>
             <div className="c3">
-              <span className="c3-1">Software Developer</span> focused on
+              <AnimatedCursorText /> focused on
               creating reliable, scalable, and high-performance solutions.
             </div>
             <div className="c4">

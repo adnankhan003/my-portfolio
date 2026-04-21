@@ -2,13 +2,15 @@
 .root-app {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: 1.25rem;
 }
 
 .screen {
   width: 100%;
-height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+  display: flex;
 }
 
 /* ============================================
@@ -16,11 +18,12 @@ height: 100vh;
    ============================================ */
 @media (min-width: 48rem) {
   .root-app {
-    gap: 0.875rem;
+    gap: 1.5rem;
   }
 
   .screen {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
   }
 }
 
@@ -29,11 +32,12 @@ height: 100vh;
    ============================================ */
 @media (min-width: 64rem) {
   .root-app {
-    gap: 1rem;
+    gap: 1.75rem;
   }
 
   .screen {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
   }
 }
 
@@ -42,11 +46,12 @@ height: 100vh;
    ============================================ */
 @media (min-width: 90rem) {
   .root-app {
-    gap: 1.25rem;
+    gap: 2rem;
   }
 
   .screen {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
   }
 }
 
@@ -55,10 +60,11 @@ height: 100vh;
    ============================================ */
 @media (min-width: 120rem) {
   .root-app {
-    gap: 1.5rem;
+    gap: 2.25rem;
   }
 
   .screen {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
   }
 }

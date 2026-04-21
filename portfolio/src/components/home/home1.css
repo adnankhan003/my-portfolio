@@ -82,6 +82,8 @@
 }
 
 .dots {
+  background: transparent;
+  border: none;
   font-size: 2rem;
   color: white;
   cursor: pointer;
@@ -96,7 +98,7 @@
 }
 
 .dropdown {
-  display: none;
+  display: block;
   z-index: 9999;
   position: absolute;
   top: 2.5rem;
@@ -106,6 +108,11 @@
   overflow: hidden;
   min-width: 7.5rem;
   box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-0.5rem) scale(0.95);
+  transform-origin: top right;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
 .dropdown-item {
@@ -123,8 +130,10 @@
   background: #222222be;
 }
 
-.mobile-menu:hover .dropdown {
-  display: block;
+.mobile-menu.open .dropdown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 /* Content Section */
@@ -499,6 +508,49 @@
   }
 }
 
+.scanner-text {
+  position: relative;
+  display: inline-block;
+  /* font-size: 2rem; */
+  font-size: 1.563rem;
+  font-family: monospace;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* default text */
+.text-base {
+  color: var(--p-color);
+}
+
+/* revealed text */
+.text-active {
+  position: absolute;
+  inset: 0;
+  color: #22d3ee;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* cursor */
+.cursor {
+  position: absolute;
+  top: 12%;
+  width: 2px;
+  height: 76%;
+  background: #22d3ee;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.9);
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+
 /* ============================================
    TABLET - 768px and up
    ============================================ */
@@ -704,6 +756,7 @@
   .rotating-disc {
     width: 10rem;
     height: 10rem;
+    z-index: 3000;
   }
 
   @keyframes popAndShake {

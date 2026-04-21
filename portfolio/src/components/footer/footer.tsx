@@ -39,8 +39,12 @@ export default function Footer({ showGoTop }: { showGoTop: boolean }) {
         <button
           className={`go-top ${showGoTop ? "show" : ""}`}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Go to top"
         >
-          <img src="/icons/up-arrow.svg" alt="up-arrow" />
+          <span className="go-top-icon">
+            <img src="/icons/up-arrow.svg" alt="" />
+          </span>
+          <span className="go-top-text">Top</span>
         </button>
       </div>
     </>
