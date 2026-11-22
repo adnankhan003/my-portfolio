@@ -433,7 +433,7 @@ export default function Home({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <strong>Reliance Jio</strong>
+                        <strong>Reliance - Jio</strong>
                         <span className="external-arrow">↗</span>
                       </a>
                     </span>
@@ -442,7 +442,7 @@ export default function Home({
               </div>
             </div>
 
-            {/* Right Media Column: Profile Photo + Compact F1 GIF */}
+            {/* Right Media Column: Profile Photo */}
             <div className="hero-right">
               {/* Profile Photo with 5 Multi-Directional Orbital Rings and Batman Hover Reveal */}
               <div className="pfp-wrapper">
@@ -469,17 +469,6 @@ export default function Home({
                   ></div>
                 </div>
               </div>
-
-              {/* Compact F1 GIF placed below the image and beside the text */}
-              {/* <div className="hero-f1-wrapper">
-                <div className="hero-f1-card" title="Speed & Precision">
-                  <img
-                    src="/icons/f1.gif"
-                    alt="F1 Racing Animation"
-                    className="f1-gif"
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
 
