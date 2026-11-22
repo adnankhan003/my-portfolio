@@ -433,7 +433,7 @@ export default function Home({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <strong>Reliance - Jio</strong>
+                        <strong>Reliance - Jio Platforms Limited</strong>
                         <span className="external-arrow">↗</span>
                       </a>
                     </span>
