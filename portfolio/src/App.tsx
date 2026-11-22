@@ -17,25 +17,15 @@ function App() {
   const [showGoTop, setShowGoTop] = useState(false);
 
   useEffect(() => {
-    if (homeRef.current) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            // When Home is NOT intersecting (scrolled past), show the button
-            setShowGoTop(!entry.isIntersecting);
-          });
-        },
-        // We use a rootMargin to make the observation start just after the Home component
-        {
-          threshold: 0, // Trigger immediately when 0% of Home is visible
-          rootMargin: "0px 0px -100% 0px", // This ensures the observer triggers once the Home component is fully out of view
-        }
-      );
+    const handleScroll = () => {
+      // Smoothly display Go-to-Top button once scrolled past 280px
+      setShowGoTop(window.scrollY > 280);
+    };
 
-      observer.observe(homeRef.current);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-      return () => observer.disconnect();
-    }
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToAbout = () => {

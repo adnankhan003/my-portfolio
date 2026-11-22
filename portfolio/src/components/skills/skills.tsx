@@ -35,10 +35,11 @@ const skillCategories: SkillCategory[] = [
     subtitle: "Data modeling, caching & indexing",
     icon: "🗄️",
     skills: [
+      { name: "PostgreSQL", icon: "/icons/postgres-removebg-preview.png", detail: "Relational & JSONB" },
       { name: "Redis", icon: "/icons/redis.svg", detail: "Multi-Tier Caching" },
       { name: "MySQL / MariaDB", icon: "/icons/mysql.svg", detail: "Relational / ACID" },
       { name: "SQL", icon: "/icons/sql.svg", detail: "Complex Tuning" },
-      { name: "Elasticsearch", icon: "/icons/dot-bg.svg", detail: "Distributed Sharding" },
+      { name: "Elasticsearch", icon: "/icons/elasticsearch-removebg.png", detail: "Distributed Sharding" },
       { name: "MongoDB", icon: "/icons/mongodb.svg", detail: "Document Store" },
     ],
   },
@@ -74,6 +75,7 @@ const skillCategories: SkillCategory[] = [
 
 const marqueeTechs = [
   { name: "Go", icon: "/icons/go.svg" },
+  { name: "PostgreSQL", icon: "/icons/postgres-removebg-preview.png" },
   { name: "Redis", icon: "/icons/redis.svg" },
   { name: "MySQL", icon: "/icons/mysql.svg" },
   { name: "Docker", icon: "/icons/docker.svg" },
@@ -117,7 +119,7 @@ function Skills({ skillsRef }: { skillsRef: React.RefObject<HTMLDivElement | nul
       {/* Section Header */}
       <div className="skills-header skills-reveal">
         <div className="skills-eyebrow">
-          <span className="eyebrow-prefix">// 03.</span> TECHNICAL CAPABILITIES
+          <span className="eyebrow-prefix"> 💠 </span> TECHNICAL CAPABILITIES
         </div>
         <h2 className="skills-headline">
           Languages, distributed architectures, and cloud infrastructure.

@@ -111,7 +111,7 @@ function Projects({ projectRef }: { projectRef: React.RefObject<HTMLDivElement |
       {/* Section Header */}
       <div className="projects-header projects-reveal">
         <div className="projects-eyebrow">
-          <span className="eyebrow-prefix">// 02.</span> FEATURED SYSTEMS
+          <span className="eyebrow-prefix"> 💠 </span> FEATURED SYSTEMS
         </div>
         <h2 className="projects-headline">
           Production systems engineered for high concurrency and scale.

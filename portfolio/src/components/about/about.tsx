@@ -75,7 +75,7 @@ function About({ aboutRef }: any) {
         {/* Left Column: Story & Engineering Pillars */}
         <div className="about-left about-reveal">
           <div className="about-eyebrow">
-            <span className="eyebrow-prefix">// 01.</span> ABOUT ME
+            <span className="eyebrow-prefix"> 💠 </span> ABOUT ME
           </div>
 
           <h2 className="about-headline">
@@ -102,18 +102,7 @@ function About({ aboutRef }: any) {
                 Jio Platforms Limited
                 <span className="link-arrow">↗</span>
               </a>
-              , I design and operate mission-critical backend services powering
-              enterprise customer management, secure document streaming, and
-              real-time KPI analytics.
-            </p>
-
-            <p className="about-body">
-              My engineering approach prioritizes measurable performance:
-              reducing relational database contention through strategic{" "}
-              <strong>Redis caching tiers</strong>, enforcing zero-trust{" "}
-              <strong>RBAC & AES-256-GCM encryption</strong>, and writing
-              idiomatic, observable <strong>Go</strong> code built to handle
-              enterprise volume reliably.
+              , I design and operate mission-critical backend services for enterprise customer management, secure document streaming, and real-time KPI analytics. I focus on performance, scalability, and security through strategic <strong>Redis caching</strong>, zero-trust <strong>RBAC & AES-256-GCM encryption</strong>, and <strong>idiomatic, observable Go services</strong> built for enterprise-scale workloads.
             </p>
           </div>
 
