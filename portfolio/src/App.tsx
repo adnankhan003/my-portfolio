@@ -5,7 +5,7 @@ import Projects from "./components/projects/projects";
 import Skills from "./components/skills/skills";
 import Contacts from "./components/contacts/contacts";
 import Footer from "./components/footer/footer";
-import "./App1.css";
+import "./App.css";
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -18,8 +18,8 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Smoothly display Go-to-Top button once scrolled past 280px
-      setShowGoTop(window.scrollY > 280);
+      // Trigger as soon as user leaves the Home section (> 160px)
+      setShowGoTop(window.scrollY > 160);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -66,7 +66,32 @@ function App() {
       <div className="screen">
         <Contacts contactsRef={contactsRef} />
       </div>
-      <Footer showGoTop={showGoTop} />
+      <Footer />
+
+      {/* Floating Go To Top Action - Fixed to Viewport Across Entire Page */}
+      <button
+        className={`go-top ${showGoTop ? "show" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll back to top"
+        title="Return to top"
+      >
+        <span className="go-top-ring">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="go-top-arrow"
+          >
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </span>
+        <span className="go-top-text">TOP</span>
+      </button>
     </div>
   );
 }

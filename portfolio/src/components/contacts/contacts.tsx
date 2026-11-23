@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./contacts1.css";
+import "./contacts.css";
 
 const contactDetails = [
   {
@@ -9,11 +9,17 @@ const contactDetails = [
     copyable: true,
   },
   {
-    label: "Current Base",
-    value: "Navi Mumbai, Maharashtra, India",
+    label: "Location",
+    value: "Navi Mumbai, India",
     href: "https://maps.google.com/?q=Navi+Mumbai",
     copyable: false,
-  }
+  },
+  {
+    label: "Core Specialization",
+    value: "Go (Golang), Distributed Systems & Real-Time Platforms",
+    href: "#",
+    copyable: false,
+  },
 ];
 
 function Contacts({ contactsRef }: { contactsRef: React.RefObject<HTMLDivElement | null> }) {
@@ -222,7 +228,7 @@ function Contacts({ contactsRef }: { contactsRef: React.RefObject<HTMLDivElement
               <textarea
                 id="message"
                 name="message"
-                placeholder="Describe your architecture requirements, project vision, or team opportunity..."
+                placeholder="State the target architecture, contract scope, or High Table opportunity...🕵️‍♂️"
                 value={form.message}
                 onChange={handleChange}
                 required

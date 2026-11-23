@@ -1,4 +1,4 @@
-import "./skills1.css";
+import "./skills.css";
 import { useEffect } from "react";
 
 interface SkillItem {
@@ -18,79 +18,79 @@ interface SkillCategory {
 const skillCategories: SkillCategory[] = [
   {
     num: "01",
-    title: "Languages & Core Runtime",
-    subtitle: "High-concurrency & backend execution",
+    title: "Programming Languages",
+    subtitle: "Core runtime & development",
     icon: "⚡",
     skills: [
       { name: "Go (Golang)", icon: "/icons/go.svg", detail: "Primary / APIs" },
       { name: "Python", icon: "/icons/python.svg", detail: "Automation & Data" },
       { name: "Node.js", icon: "/icons/node.svg", detail: "Async Services" },
       { name: "Java", icon: "/icons/java.svg", detail: "OOP & Algorithms" },
-      { name: "JavaScript", icon: "/icons/javascript.svg", detail: "Modern ES6+" },
+      { name: "JavaScript (ES6+)", icon: "/icons/javascript.svg", detail: "Modern ES6+" },
+      { name: "React.js", icon: "/icons/react.svg", detail: "UI & Frontend" },
     ],
   },
   {
     num: "02",
-    title: "Databases, Caching & Search",
+    title: "Databases & Messaging",
     subtitle: "Data modeling, caching & indexing",
     icon: "🗄️",
     skills: [
       { name: "PostgreSQL", icon: "/icons/postgres-removebg-preview.png", detail: "Relational & JSONB" },
-      { name: "Redis", icon: "/icons/redis.svg", detail: "Multi-Tier Caching" },
-      { name: "MySQL / MariaDB", icon: "/icons/mysql.svg", detail: "Relational / ACID" },
-      { name: "SQL", icon: "/icons/sql.svg", detail: "Complex Tuning" },
-      { name: "Elasticsearch", icon: "/icons/elasticsearch-removebg.png", detail: "Distributed Sharding" },
-      { name: "MongoDB", icon: "/icons/mongodb.svg", detail: "Document Store" },
+      { name: "Redis", icon: "/icons/redis.svg", detail: "Multi-Tier In-Memory Cache" },
+      { name: "Apache Kafka", icon: "/icons/kafka.png", detail: "Event-Driven Processing" },
+      { name: "MariaDB / MySQL", icon: "/icons/mysql.svg", detail: "ACID Transactions" },
+      { name: "Elasticsearch (ELK)", icon: "/icons/elasticsearch-removebg.png", detail: "Distributed Indexing" },
+      { name: "MongoDB", icon: "/icons/mongodb.svg", detail: "NoSQL & Document Storage" },
     ],
   },
   {
     num: "03",
-    title: "Cloud, Containers & DevOps",
-    subtitle: "Infrastructure & automated deployment",
+    title: "Cloud, DevOps & Security",
+    subtitle: "Cloud-native infrastructure & cryptography",
     icon: "☁️",
     skills: [
-      { name: "Microsoft Azure", icon: "/icons/azure.svg", detail: "Cloud Workloads" },
-      { name: "Google Cloud (GCS)", icon: "/icons/google-cloud.svg", detail: "Storage & IAM" },
+      { name: "Google Cloud (GCS)", icon: "/icons/google-cloud.svg", detail: "Signed URLs & Storage" },
+      { name: "Microsoft Azure", icon: "/icons/azure.svg", detail: "Enterprise Cloud" },
       { name: "Docker", icon: "/icons/docker.svg", detail: "Containerization" },
       { name: "Kubernetes", icon: "/icons/kubernetes.svg", detail: "Pod Orchestration" },
-      { name: "Git & GitHub", icon: "/icons/git.svg", detail: "Version Control" },
-      { name: "Postman", icon: "/icons/postman.svg", detail: "API Test Suites" },
+      { name: "Git", icon: "/icons/git.svg", detail: "CI/CD & Version Control" },
+      { name: "GitHub", icon: "/icons/github.svg", detail: "Host and Collaborate" },
     ],
   },
   {
     num: "04",
-    title: "Architecture & Security",
-    subtitle: "Zero-trust design & high throughput",
-    icon: "🛡️",
+    title: "Frameworks & Backend Systems",
+    subtitle: "Concurrency, APIs & real-time streaming",
+    icon: "⚙️",
     skills: [
-      { name: "High-Throughput REST APIs", detail: "Sub-50ms p95" },
-      { name: "Zero-Trust RBAC", detail: "Granular Tenancy" },
-      { name: "JWT Cryptographic Auth", detail: "Audited Claims" },
-      { name: "AES-256-GCM Encryption", detail: "Payload Security" },
-      { name: "Distributed CRON Engines", detail: "Scheduled Reporting" },
-      { name: "Time-Bound Signed URLs", detail: "Secure Streaming" },
+      { name: "Fiber & GORM", detail: "High-Performance Go" },
+      { name: "REST API Design", detail: "Microservice Architectures" },
+      { name: "WebSockets & WebRTC", detail: "Real-Time Video / Chat" },
+      { name: "Concurrent Processing", detail: "Goroutines & Channels" },
+      { name: "AES-256-GCM Encryption", detail: "Payload & RTSP Security" },
+      { name: "Zero-Trust RBAC & JWT", detail: "Multi-Tenant Security" },
     ],
   },
 ];
 
 const marqueeTechs = [
-  { name: "Go", icon: "/icons/go.svg" },
+  { name: "Go (Golang)", icon: "/icons/go.svg" },
   { name: "PostgreSQL", icon: "/icons/postgres-removebg-preview.png" },
   { name: "Redis", icon: "/icons/redis.svg" },
-  { name: "MySQL", icon: "/icons/mysql.svg" },
+  { name: "Apache Kafka" },
   { name: "Docker", icon: "/icons/docker.svg" },
-  { name: "Azure", icon: "/icons/azure.svg" },
-  { name: "GCP", icon: "/icons/google-cloud.svg" },
-  { name: "Python", icon: "/icons/python.svg" },
-  { name: "Node.js", icon: "/icons/node.svg" },
   { name: "Kubernetes", icon: "/icons/kubernetes.svg" },
   { name: "SQL", icon: "/icons/sql.svg" },
-  { name: "Git", icon: "/icons/git.svg" },
-  { name: "Postman", icon: "/icons/postman.svg" },
-  { name: "MongoDB", icon: "/icons/mongodb.svg" },
+  { name: "Azure", icon: "/icons/azure.svg" },
+  { name: "Google Cloud", icon: "/icons/google-cloud.svg" },
+  { name: "TypeScript", icon: "/icons/javascript.svg" },
+  { name: "Elasticsearch", icon: "/icons/elasticsearch-removebg.png" },
+  { name: "MySQL", icon: "/icons/mysql.svg" },
   { name: "React", icon: "/icons/react.svg" },
-  { name: "Java", icon: "/icons/java.svg" },
-  { name: "JavaScript", icon: "/icons/javascript.svg" },
+  { name: "Python", icon: "/icons/python.svg" },
+  { name: "Node.js", icon: "/icons/node.svg" },
+  { name: "Git", icon: "/icons/git.svg" },
 ];
 
 function Skills({ skillsRef }: { skillsRef: React.RefObject<HTMLDivElement | null> }) {
@@ -177,14 +177,22 @@ function Skills({ skillsRef }: { skillsRef: React.RefObject<HTMLDivElement | nul
           {/* First set of marquee items */}
           {marqueeTechs.map((tech, i) => (
             <div key={`m1-${tech.name}-${i}`} className="marquee-badge">
-              <img src={tech.icon} alt="" className="marquee-icon" aria-hidden="true" />
+              {tech.icon ? (
+                <img src={tech.icon} alt="" className="marquee-icon" aria-hidden="true" />
+              ) : (
+                <span className="marquee-bullet">⚡</span>
+              )}
               <span className="marquee-text">{tech.name}</span>
             </div>
           ))}
           {/* Duplicate set for perfectly seamless looping */}
           {marqueeTechs.map((tech, i) => (
             <div key={`m2-${tech.name}-${i}`} className="marquee-badge" aria-hidden="true">
-              <img src={tech.icon} alt="" className="marquee-icon" aria-hidden="true" />
+              {tech.icon ? (
+                <img src={tech.icon} alt="" className="marquee-icon" aria-hidden="true" />
+              ) : (
+                <span className="marquee-bullet">⚡</span>
+              )}
               <span className="marquee-text">{tech.name}</span>
             </div>
           ))}

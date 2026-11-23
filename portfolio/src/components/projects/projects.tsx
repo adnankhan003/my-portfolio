@@ -1,4 +1,4 @@
-import "./project1.css";
+import "./project.css";
 import { useEffect } from "react";
 
 interface ProjectMetric {
@@ -10,6 +10,7 @@ interface ProjectData {
   id: string;
   tag: string;
   status: string;
+  statusType?: "production" | "development";
   title: string;
   subtitle: string;
   summary: string;
@@ -21,66 +22,102 @@ interface ProjectData {
 
 const projects: ProjectData[] = [
   {
-    id: "coreops",
-    tag: "MISSION-CRITICAL WORKFLOW",
-    status: "PRODUCTION LIVE",
-    title: "JioCX CoreOps",
-    subtitle: "Enterprise Purchase Order & Distributed Workflow Engine",
-    category: "Enterprise Backend Architecture",
+    id: "whatsapp-platform",
+    tag: "EVENT-DRIVEN & CONCURRENCY",
+    status: "PRODUCTION",
+    statusType: "production",
+    title: "WhatsApp Enterprise Bot & Appointment Platform",
+    subtitle: "Multi-Tenant Booking Engine & Real-Time WhatsApp Sync",
+    category: "High-Concurrency Backend",
     summary:
-      "Engineered scalable, fault-tolerant backend services powering end-to-end customer onboarding, dynamic lead allocation, purchase order lifecycle, and billing workflows across JioCX.",
+      "A multi-tenant appointment scheduling platform with dynamic slot availability, round-robin agent assignment, and real-time WhatsApp synchronization.",
     metrics: [
-      { label: "p95 Latency", value: "< 45ms" },
-      { label: "Data Security", value: "AES-256-GCM" },
-      { label: "Access Architecture", value: "Zero-Trust RBAC" },
+      { label: "REST Endpoints", value: "30+ APIs" },
+      { label: "Sync Engine", value: "Kafka & WSS" },
+      { label: "Concurrency", value: "Pessimistic Lock" },
     ],
     highlights: [
-      "Architected high-throughput Go microservices backed by MariaDB/MySQL handling concurrent business-critical transitions without lock contention.",
-      "Integrated Google Cloud Storage (GCS) with time-bound signed URLs and AES-256-GCM payload encryption for audited enterprise document streaming.",
-      "Optimized high-traffic query bottlenecks using strategic multi-tiered Redis caching and composite database indexing.",
-      "Enforced granular Role-Based Access Control (RBAC) and JWT validation for multi-tenant enterprise data security.",
+      "Built 30+ REST APIs using Go (Fiber) and GORM with JWT, RBAC, and client tenant isolation.",
+      "Engineered concurrency-safe booking using pessimistic locking, Kafka event processing, and WebSockets.",
+      "Developed an administrative portal with interactive booking calendars, blackout management, and KPI analytics.",
     ],
     stack: [
       "Go",
-      "MySQL",
-      "MariaDB",
+      "Fiber",
+      "GORM",
+      "PostgreSQL",
       "Redis",
-      "GCS",
-      "Azure",
-      "Docker",
+      "Apache Kafka",
+      "WebSockets",
       "JWT",
-      "AES-256-GCM",
+      "GCS",
     ],
   },
   {
-    id: "kpi-analytics",
-    tag: "REAL-TIME TELEMETRY",
-    status: "PRODUCTION LIVE",
-    title: "JioCX KPI Analytics Engine",
-    subtitle: "Live Telemetry Dashboards & Automated Reporting Engine",
-    category: "Big Data & Ingestion Pipelines",
+    id: "coreops-crm",
+    tag: "WORKFLOW AUTOMATION & CRM",
+    status: "PRODUCTION",
+    statusType: "production",
+    title: "CoreOps - Enterprise CRM & Analytics Platform",
+    subtitle: "Workflow Automation, Document Vault & KPI Analytics",
+    category: "Enterprise CRM & Analytics",
     summary:
-      "Delivered a high-performance analytics ingestion platform serving 200+ enterprise clients with live operational metrics, client-isolated access, and automated scheduled reporting.",
+      "An enterprise CRM and workflow engine built from scratch, supporting lead onboarding, billing, document management, and real-time KPI dashboards for 200+ clients.",
     metrics: [
-      { label: "Enterprise Scale", value: "200+ Clients" },
-      { label: "Data Stream", value: "Real-Time" },
-      { label: "Automation", value: "Distributed CRON" },
+      { label: "Scale", value: "200+ Clients" },
+      { label: "Response", value: "< 45ms p95" },
+      { label: "Automation", value: "Dynamic CRON" },
     ],
     highlights: [
-      "Constructed dual-tier ingestion pipelines utilizing Elasticsearch index sharding and optimized SQL aggregation for live KPI metric calculation.",
-      "Built low-latency Go APIs delivering sub-50ms data responses with intelligent Redis cache invalidation strategies.",
-      "Designed an autonomous distributed CRON automation service for dispatching scheduled analytics reports (daily, weekly, monthly cadences).",
-      "Implemented strict tenant data isolation through cryptographically signed claims and dynamic database views.",
+      "Built scalable Go backend services for lead onboarding, PO management, billing, and financial reporting.",
+      "Designed REST APIs with JWT authentication and Redis-cached RBAC authorization for client-wise isolation.",
+      "Implemented cloud-native services with GCS signed URLs, background workers, and dynamic CRON jobs for scheduled reports.",
     ],
     stack: [
       "Go",
+      "MariaDB",
+      "MySQL",
       "Elasticsearch",
-      "SQL",
       "Redis",
-      "Azure",
+      "GCS",
+      "JWT",
+      "RBAC",
       "Docker",
-      "CRON Engine",
-      "REST APIs",
+      "Kubernetes",
+      "Azure",
+    ],
+  },
+  {
+    id: "argus-surveillance",
+    tag: "STREAMING & REVERSE TUNNEL",
+    status: "IN DEVELOPMENT",
+    statusType: "development",
+    title: "Argus - Enterprise AI Video Surveillance & NVR",
+    subtitle: "Edge-Cloud Video Pipeline & Reverse WebSocket Tunnel",
+    category: "Streaming & Edge Architecture",
+    summary:
+      "An AI video surveillance platform featuring edge-cloud processing, outbound reverse WebSocket tunneling for firewall traversal, and sub-second WebRTC streaming.",
+    metrics: [
+      { label: "Cloud Bandwidth", value: "~80% Saved" },
+      { label: "Firewall Traversal", value: "WSS/443" },
+      { label: "Streaming", value: "WebRTC / HLS" },
+    ],
+    highlights: [
+      "Reduced cloud bandwidth by ~80% through dual-streaming: low-res AI substreams and local 4K/1080p recording.",
+      "Engineered an outbound-only Reverse WebSocket Tunnel (WSS/443) for double-NAT & firewall traversal without open ports.",
+      "Integrated AI Semantic Search, face recognition, bounded goroutines, and AES-256-GCM RTSP credential encryption.",
+    ],
+    stack: [
+      "Golang",
+      "Fiber",
+      "Frigate NVR",
+      "MediaMTX",
+      "WebSockets",
+      "WebRTC",
+      "PostgreSQL",
+      "Redis",
+      "HLS",
+      "Docker",
     ],
   },
 ];
@@ -111,15 +148,14 @@ function Projects({ projectRef }: { projectRef: React.RefObject<HTMLDivElement |
       {/* Section Header */}
       <div className="projects-header projects-reveal">
         <div className="projects-eyebrow">
-          <span className="eyebrow-prefix"> 💠 </span> FEATURED SYSTEMS
+          <span className="eyebrow-prefix"> 💠 </span> FEATURED PROJECTS
         </div>
         <h2 className="projects-headline">
-          Production systems engineered for high concurrency and scale.
+          Enterprise platforms engineered for concurrency, reliability, and scale.
         </h2>
         <p className="projects-intro">
-          Architectural deep-dives into mission-critical backend microservices,
-          cryptographic storage pipelines, and distributed analytics engines
-          built at enterprise scale.
+          Production backend architectures spanning high-concurrency appointment systems,
+          edge-cloud AI video surveillance, and enterprise CRM workflow platforms.
         </p>
       </div>
 
@@ -129,15 +165,19 @@ function Projects({ projectRef }: { projectRef: React.RefObject<HTMLDivElement |
           <article
             className="project-card projects-reveal"
             key={project.id}
-            style={{ animationDelay: `${idx * 0.15}s` }}
+            style={{ animationDelay: `${idx * 0.12}s` }}
           >
             {/* Card Header Bar */}
             <div className="project-card-header">
               <div className="project-category-badge">
-                <span className="project-category-icon">⚡</span>
+                {/* <span className="project-category-icon">⚡</span> */}
                 <span className="project-category-text">{project.tag}</span>
               </div>
-              <div className="project-status-pill">
+              <div
+                className={`project-status-pill ${
+                  project.statusType === "development" ? "status-dev" : "status-prod"
+                }`}
+              >
                 <span className="status-live-ping"></span>
                 <span className="status-live-text">{project.status}</span>
               </div>
@@ -164,7 +204,7 @@ function Projects({ projectRef }: { projectRef: React.RefObject<HTMLDivElement |
 
               {/* Engineering Highlights */}
               <div className="project-highlights-group">
-                <h4 className="highlights-title">Architectural Highlights</h4>
+                <h4 className="highlights-title">Key Engineering Highlights</h4>
                 <ul className="highlights-list">
                   {project.highlights.map((point, index) => (
                     <li key={index} className="highlight-item">
@@ -177,7 +217,7 @@ function Projects({ projectRef }: { projectRef: React.RefObject<HTMLDivElement |
 
               {/* Technology Stack Badges */}
               <div className="project-stack-group">
-                <h4 className="stack-title">Technologies & Infrastructure</h4>
+                <h4 className="stack-title">Technologies Used</h4>
                 <div className="project-stack-pills">
                   {project.stack.map((tech) => (
                     <span key={tech} className="tech-chip">

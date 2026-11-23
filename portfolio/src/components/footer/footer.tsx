@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./footer1.css";
+import "./footer.css";
 
-export default function Footer({ showGoTop }: { showGoTop: boolean }) {
+export default function Footer() {
   const [isFaceVisible, setIsFaceVisible] = useState(false);
 
   const handleLabelClick = () => {
@@ -25,7 +25,7 @@ export default function Footer({ showGoTop }: { showGoTop: boolean }) {
           {/* Easter egg face popup */}
           <div className={`face-hover ${isFaceVisible ? "clicked" : ""}`}>
             <div className="face-hover-ring">
-              <img src="/icons/new-pfp.png" alt="Adnan Khan" />
+              <img src="/icons/my_pic.jpeg" alt="Adnan Khan" />
             </div>
           </div>
         </div>
@@ -69,31 +69,6 @@ export default function Footer({ showGoTop }: { showGoTop: boolean }) {
           <span>Over and out... 🤺</span>
         </div>
       </div>
-
-      {/* Floating Go To Top Action */}
-      <button
-        className={`go-top ${showGoTop ? "show" : ""}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        aria-label="Scroll back to top"
-        title="Return to top"
-      >
-        <span className="go-top-ring">
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="go-top-arrow"
-          >
-            <path d="M18 15l-6-6-6 6" />
-          </svg>
-        </span>
-        <span className="go-top-text">TOP</span>
-      </button>
     </footer>
   );
 }

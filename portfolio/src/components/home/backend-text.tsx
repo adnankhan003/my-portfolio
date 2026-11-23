@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./home1.css"
+import "./home.css"
 
 const TEXT = "Software Developer";
 const STEP_DELAY = 160;   // speed per step (slow + deliberate)

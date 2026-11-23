@@ -1,5 +1,5 @@
 import ALogo from "/icons/a-icon-white.svg";
-import "./home1.css";
+import "./home.css";
 import { useEffect, useRef, useState } from "react";
 import AnimatedCursorText from "./backend-text";
 
@@ -405,7 +405,7 @@ export default function Home({
               {/* Bio with Typewriter Scanner Text */}
               <p className="c3">
                 <AnimatedCursorText /> focused on building reliable, scalable, and
-                high-performance distributed systems.
+                distributed backend systems.
               </p>
 
               {/* Specialization & Experience Highlights */}
@@ -416,7 +416,7 @@ export default function Home({
                     <span>
                       Specializing in Backend Engineering{" "}
                       <span className="tech-stack-preview">
-                        (Go &bull; SQL &bull; Node.js &bull; Python &bull; Redis)
+                        (Go &bull; SQL &bull; Redis &bull; Kafka &bull; WebSockets)
                       </span>
                     </span>
                   </span>
@@ -433,7 +433,7 @@ export default function Home({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <strong>Reliance - Jio Platforms Limited</strong>
+                        <strong>Jio Platforms Limited</strong>
                         <span className="external-arrow">↗</span>
                       </a>
                     </span>
@@ -456,7 +456,11 @@ export default function Home({
                 </div>
 
                 {/* Portrait Frame & Batman Easter Egg */}
-                <div className="pfp-frame" ref={wrapperRef}>
+                <div
+                  className="pfp-frame"
+                  ref={wrapperRef}
+                  title="Adnan Khan • Hover to reveal alter ego"
+                >
                   <img
                     src="/icons/new-pfp.png"
                     alt="Adnan Khan"
@@ -467,6 +471,10 @@ export default function Home({
                     ref={revealRef}
                     aria-hidden="true"
                   ></div>
+                  {/* Periodic Radar Sweep Teaser (Autonomous Alter-Ego Glimpse) */}
+                  <div className="pfp-teaser" aria-hidden="true">
+                    <span className="teaser-beam"></span>
+                  </div>
                 </div>
               </div>
             </div>

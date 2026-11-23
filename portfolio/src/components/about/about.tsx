@@ -1,50 +1,50 @@
-import "./about1.css";
+import "./about.css";
 import { useEffect } from "react";
 
 const engineeringPillars = [
   {
     icon: "⚡",
     title: "High-Throughput Go APIs",
-    desc: "Architecting concurrent REST services optimized for low latency, clean interfaces, and minimal memory overhead.",
+    desc: "Architecting concurrent REST services using Go (Fiber) optimized for low latency and high-volume business workflows.",
+  },
+  {
+    icon: "📡",
+    title: "Real-Time & Event Streams",
+    desc: "Building asynchronous event-driven pipelines with Apache Kafka, WebSockets for live sync, and WebRTC video streaming.",
   },
   {
     icon: "🛡️",
     title: "Zero-Trust Security",
-    desc: "Granular RBAC, JWT validation, and end-to-end AES-256-GCM payload encryption for mission-critical enterprise docs.",
-  },
-  {
-    icon: "📊",
-    title: "Real-Time Data Pipelines",
-    desc: "Elasticsearch and SQL pipelines feeding live analytics dashboards and user-configurable CRON report automation.",
+    desc: "Granular RBAC, JWT validation, client-wise data isolation, and AES-256-GCM encryption for credentials and enterprise documents.",
   },
   {
     icon: "☁️",
-    title: "Distributed Caching & Cloud",
-    desc: "Multi-tiered Redis caching to eliminate database hotspots, coupled with Docker containerization and cloud signed URLs.",
+    title: "Distributed Data & Cloud",
+    desc: "Multi-tiered Redis caching to eliminate hotspots, SQL/Elasticsearch tuning, Docker, and Google Cloud Storage (GCS).",
   },
 ];
 
 const impactMetrics = [
   { value: "2.5+ Yrs", label: "Backend Engineering", sub: "Production experience" },
-  { value: "200+", label: "Enterprise Clients", sub: "Live dashboard users" },
-  { value: "< 50ms", label: "Targeted p95 Latency", sub: "Optimized response times" },
-  { value: "AES-256", label: "Data Encryption", sub: "End-to-end cryptography" },
+  { value: "200+", label: "Enterprise Clients", sub: "Supported in production" },
+  { value: "~80%", label: "Bandwidth Reduced", sub: "Edge-cloud video pipeline" },
+  { value: "AES-256", label: "Data Encryption", sub: "End-to-end security" },
 ];
 
 const systemSpecs = [
-  { label: "Role", value: "Software Development Engineer" },
+  { label: "Role", value: "Software Development Engineer I" },
   { label: "Company", value: "Jio Platforms Limited" },
-  { label: "Core Stack", value: "Go, SQL, Redis, Elasticsearch" },
-  { label: "Cloud & Infra", value: "Azure, GCP, Docker, Linux" },
+  { label: "Core Stack", value: "Go, Fiber, SQL, Redis, Kafka" },
+  { label: "Cloud & Infra", value: "GCP (GCS), Azure, Docker, Linux" },
 ];
 
 const focusTags = [
+  "Go (Golang)",
   "Distributed Systems",
-  "High Concurrency",
-  "API Security",
-  "Database Tuning",
-  "Cloud Native",
-  "Event Automation",
+  "Apache Kafka",
+  "WebSockets",
+  "Redis Caching",
+  "Zero-Trust RBAC",
 ];
 
 function About({ aboutRef }: any) {
@@ -79,16 +79,16 @@ function About({ aboutRef }: any) {
           </div>
 
           <h2 className="about-headline">
-            Architecting high-concurrency backend services that stay fast,
-            resilient, and clean under scale.
+            Architecting scalable multi-tenant platforms, real-time communication
+            systems, and distributed backend services.
           </h2>
 
           <div className="about-story">
             <p className="about-lead">
-              I am <strong>Adnan Khan</strong>, a Backend Software Engineer with{" "}
-              <strong>2.5+ years of production experience</strong> specializing
-              in building high-throughput microservices, secure cloud
-              architectures, and distributed data systems.
+              I am <strong>Adnan Khan</strong>, a Software Engineer with{" "}
+              <strong>2.5+ years of experience</strong> building enterprise-grade
+              applications and distributed backend systems, with primary
+              expertise in <strong>Go (Golang)</strong>.
             </p>
 
             <p className="about-body">
@@ -102,7 +102,18 @@ function About({ aboutRef }: any) {
                 Jio Platforms Limited
                 <span className="link-arrow">↗</span>
               </a>
-              , I design and operate mission-critical backend services for enterprise customer management, secure document streaming, and real-time KPI analytics. I focus on performance, scalability, and security through strategic <strong>Redis caching</strong>, zero-trust <strong>RBAC & AES-256-GCM encryption</strong>, and <strong>idiomatic, observable Go services</strong> built for enterprise-scale workloads.
+              , I develop scalable REST APIs, business workflows, and real-time
+              systems supporting <strong>200+ enterprise clients</strong>. My
+              experience spans enterprise CRM workflows, appointment automation,
+              and AI video surveillance infrastructure.
+            </p>
+
+            <p className="about-body">
+              My engineering approach prioritizes measurable reliability:
+              reducing database contention through strategic{" "}
+              <strong>Redis caching</strong>, event-driven pipelines with{" "}
+              <strong>Kafka & WebSockets</strong>, and zero-trust{" "}
+              <strong>RBAC & AES-256-GCM encryption</strong>.
             </p>
           </div>
 
@@ -137,7 +148,7 @@ function About({ aboutRef }: any) {
                 adnan@jio:~# sys_info
               </div>
               <div className="terminal-status">
-                <span className="live-ping"></span>sw3
+                <span className="live-ping"></span>
                 <span className="status-text">ONLINE</span>
               </div>
             </div>
