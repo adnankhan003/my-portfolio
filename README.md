@@ -134,3 +134,9 @@ portfolio/
 - **LinkedIn**: [adnan-khan-31ab14198](https://www.linkedin.com/in/adnan-khan-31ab14198/)  
 - **GitHub**: [adnankhan003](https://github.com/adnankhan003)  
 - **Email**: [adnankhannew777@gmail.com](mailto:adnankhannew777@gmail.com)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](https://github.com/adnankhan003/my-portfolio/blob/main/LICENSE).
