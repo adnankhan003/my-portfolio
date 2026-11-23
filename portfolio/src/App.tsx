@@ -5,7 +5,7 @@ import Projects from "./components/projects/projects";
 import Skills from "./components/skills/skills";
 import Contacts from "./components/contacts/contacts";
 import Footer from "./components/footer/footer";
-import "./App1.css";
+import "./App.css";
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -17,25 +17,15 @@ function App() {
   const [showGoTop, setShowGoTop] = useState(false);
 
   useEffect(() => {
-    if (homeRef.current) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            // When Home is NOT intersecting (scrolled past), show the button
-            setShowGoTop(!entry.isIntersecting);
-          });
-        },
-        // We use a rootMargin to make the observation start just after the Home component
-        {
-          threshold: 0, // Trigger immediately when 0% of Home is visible
-          rootMargin: "0px 0px -100% 0px", // This ensures the observer triggers once the Home component is fully out of view
-        }
-      );
+    const handleScroll = () => {
+      // Trigger as soon as user leaves the Home section (> 160px)
+      setShowGoTop(window.scrollY > 160);
+    };
 
-      observer.observe(homeRef.current);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-      return () => observer.disconnect();
-    }
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToAbout = () => {
@@ -76,7 +66,32 @@ function App() {
       <div className="screen">
         <Contacts contactsRef={contactsRef} />
       </div>
-      <Footer showGoTop={showGoTop} />
+      <Footer />
+
+      {/* Floating Go To Top Action - Fixed to Viewport Across Entire Page */}
+      <button
+        className={`go-top ${showGoTop ? "show" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll back to top"
+        title="Return to top"
+      >
+        <span className="go-top-ring">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="go-top-arrow"
+          >
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+        </span>
+        <span className="go-top-text">TOP</span>
+      </button>
     </div>
   );
 }

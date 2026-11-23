@@ -1,7 +1,15 @@
 import ALogo from "/icons/a-icon-white.svg";
-import "./home1.css";
+import "./home.css";
 import { useEffect, useRef, useState } from "react";
 import AnimatedCursorText from "./backend-text";
+
+const CLICK_REACTIONS = [
+  { text: "nice!", icon: "🚀" },
+  { text: "again?", icon: "⚡" },
+  { text: "combo x2!", icon: "🔥" },
+  { text: "combo x3!", icon: "💥" },
+  { text: "supernova!", icon: "✨" },
+];
 
 export default function Home({
   scrollToAbout,
@@ -10,13 +18,47 @@ export default function Home({
   scrollToContacts,
 }: any) {
   const logoRef = useRef<HTMLImageElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoAnimating, setIsLogoAnimating] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [badgeText, setBadgeText] = useState("click me");
+  const [badgeIcon, setBadgeIcon] = useState("✨");
+  const resetTimerRef = useRef<number | null>(null);
+
+  // Close mobile menu when clicking outside or pressing Escape
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
 
   useRevealOnScroll();
 
   function animateC2() {
-    // console.log("animateC2");
-
     if (logoRef.current) {
       const logo = logoRef.current;
       logo.classList.add("letter");
@@ -34,32 +76,46 @@ export default function Home({
   function animateLogo() {
     if (logoRef.current) {
       const logo = logoRef.current;
+      setIsLogoAnimating(true);
+
+      const nextCount = clickCount + 1;
+      setClickCount(nextCount);
+      const reaction = CLICK_REACTIONS[(nextCount - 1) % CLICK_REACTIONS.length];
+      setBadgeText(reaction.text);
+      setBadgeIcon(reaction.icon);
+
+      logo.classList.remove("animate");
+      // Force DOM reflow to allow immediate re-triggering
+      void logo.offsetWidth;
       logo.classList.add("animate");
+
+      // After a moment of idle, settle to an inviting "again? ↺" state
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+      resetTimerRef.current = window.setTimeout(() => {
+        setBadgeText("again? ↺");
+        setBadgeIcon("⚡");
+      }, 2200);
 
       logo.addEventListener(
         "animationend",
         () => {
           logo.classList.remove("animate");
+          setIsLogoAnimating(false);
         },
         { once: true }
       );
     }
   }
 
-  // function animatePfp() {
-  //   if (logoRef.current) {
-  //     const logo = logoRef.current;
-  //     logo.classList.add("animate");
-
-  //     logo.addEventListener(
-  //       "animationend",
-  //       () => {
-  //         logo.classList.remove("animate");
-  //       },
-  //       { once: true }
-  //     );
-  //   }
-  // }
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
 
   function useRevealOnScroll() {
     useEffect(() => {
@@ -71,11 +127,11 @@ export default function Home({
             if (entry.isIntersecting) {
               entry.target.classList.add("active");
             } else {
-              entry.target.classList.remove("active"); // re-animate when scrolling back
+              entry.target.classList.remove("active");
             }
           });
         },
-        { threshold: 0.2 }
+        { threshold: 0.15 }
       );
 
       elements.forEach((el) => observer.observe(el));
@@ -139,99 +195,125 @@ export default function Home({
   return (
     <>
       <div className="root-home">
-        <div className="header">
+        {/* Top Header */}
+        <header className="header">
+          {/* Interactive Logo with Text Denoter & Shockwave Animation */}
           <div className="upper-logo reveal">
-            <a
-              onClick={(e) => {
-                e.preventDefault();
-                animateLogo();
+            <div
+              className={`logo-interactive-group ${isLogoAnimating ? "is-animating" : ""}`}
+              onClick={animateLogo}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  animateLogo();
+                }
               }}
+              aria-label="Click logo to trigger animation"
+              title="Click to trigger animation"
             >
-              <div className="logo-bracket" style={{ display: "flex" }}>
-                <div className="bracket" style={{ display: "flex" }}>
-                  {"{"}
+              <div className="logo-bracket">
+                <span className="bracket bracket-left">{"{"}</span>
+                <div className="logo-img-wrapper">
+                  {isLogoAnimating && <span className="logo-shockwave"></span>}
+                  <img
+                    src={ALogo}
+                    ref={logoRef}
+                    className="logo"
+                    alt="Adnan Khan initial logo"
+                  />
                 </div>
-                <div>
-                  {/* <div className="arrow-down">
-                    <img src="/icons/arrow-down.svg" alt="" />
-                  </div> */}
-                  <img src={ALogo} ref={logoRef} className="logo" alt="A" />
-                </div>
-                <div className="bracket" style={{ display: "flex" }}>
-                  {"}"}
-                </div>
+                <span className="bracket bracket-right">{"}"}</span>
               </div>
-            </a>
+
+              {/* Text Denoter Indicator with Interactive Micro-Reactions */}
+              <div className="logo-denoter">
+                <span className="denoter-pulse"></span>
+                <span className="denoter-text">{badgeText}</span>
+                <span className="denoter-sparkle">{badgeIcon}</span>
+              </div>
+            </div>
           </div>
-          <div className="tab-bar">
-            {/* Laptop / Desktop tabs */}
+
+          {/* Navigation Bar */}
+          <nav className="tab-bar">
+            {/* Desktop Navigation Links */}
             <div className="tabs desktop-tabs">
-              <a className="tab" href="/" rel="noopener noreferrer">
+              <a className="tab active" href="/" rel="noopener noreferrer">
                 <span>Home</span>
               </a>
 
               <a
                 className="tab"
+                href="#about"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToAbout();
                 }}
-                rel="noopener noreferrer"
               >
                 <span>About</span>
               </a>
 
               <a
                 className="tab"
+                href="#projects"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToProjects();
                 }}
-                rel="noopener noreferrer"
               >
                 <span>Projects</span>
               </a>
 
               <a
                 className="tab"
+                href="#skills"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToskills();
                 }}
-                rel="noopener noreferrer"
               >
                 <span>Skills</span>
               </a>
 
               <a
                 className="tab"
+                href="#contacts"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToContacts();
                 }}
-                rel="noopener noreferrer"
               >
                 <span>Contacts</span>
               </a>
             </div>
 
-            {/* Mobile three-dots menu */}
-            <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+            {/* Mobile Menu Toggle Button */}
+            <div
+              className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
+              ref={mobileMenuRef}
+            >
               <button
                 className="dots"
                 type="button"
-                aria-label="Toggle mobile navigation"
+                aria-label="Toggle navigation menu"
                 aria-expanded={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               >
-                <img src="/icons/menu-new.svg" alt="" />
+                <img src="/icons/menu-new.svg" alt="Menu" />
               </button>
 
               <div className="dropdown">
-                <a href="/" className="dropdown-item">
+                <a
+                  href="/"
+                  className="dropdown-item"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   Home
                 </a>
                 <a
+                  href="#about"
                   className="dropdown-item"
                   onClick={(e) => {
                     e.preventDefault();
@@ -242,6 +324,7 @@ export default function Home({
                   About
                 </a>
                 <a
+                  href="#projects"
                   className="dropdown-item"
                   onClick={(e) => {
                     e.preventDefault();
@@ -252,6 +335,7 @@ export default function Home({
                   Projects
                 </a>
                 <a
+                  href="#skills"
                   className="dropdown-item"
                   onClick={(e) => {
                     e.preventDefault();
@@ -262,6 +346,7 @@ export default function Home({
                   Skills
                 </a>
                 <a
+                  href="#contacts"
                   className="dropdown-item"
                   onClick={(e) => {
                     e.preventDefault();
@@ -273,63 +358,129 @@ export default function Home({
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="line"></div>
-        <div className="content reveal">
-          <div className="content-text">
-            <div className="c1">Hey there!, I'm-</div>
-            <div className="label-pfp-container">
-              <div className="label-pfp">
-                <div className="img-label"></div>
-                <a
-                  onClick={(e) => {
+          </nav>
+        </header>
+
+        {/* Ambient Subtle Divider */}
+        <div className="header-divider"></div>
+
+        {/* Hero Main Content */}
+        <main className="content reveal">
+          <div className="content-text hero-layout">
+            {/* Left Content Column */}
+            <div className="hero-left">
+              {/* Developer Eyebrow Greeting */}
+              <div className="c1">
+                <span className="c1-tag">
+                  <span className="c1-prompt">&gt;</span> hey there, I'm
+                </span>
+              </div>
+
+              {/* Name */}
+              <div
+                className="c2-wrap"
+                onClick={(e) => {
+                  e.preventDefault();
+                  animateC2();
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     animateC2();
-                  }}
-                >
-                  <div className="c2">
-                    {"Adnan Khan.".split("").map((letter, idx) => (
-                      <span key={idx} className="letter">
-                        {letter === " " ? "\u00A0" : letter}
-                      </span>
-                    ))}
-                  </div>
-                </a>
+                  }
+                }}
+                title="Hover or click letters"
+              >
+                <h1 className="c2">
+                  {"Adnan Khan.".split("").map((letter, idx) => (
+                    <span key={idx} className="letter">
+                      {letter === " " ? "\u00A0" : letter}
+                    </span>
+                  ))}
+                </h1>
               </div>
-              {/* <div className="pfp">
-                <img src="/icons/pfp.png" alt="Adnan Khan's face" />
-              </div> */}
-              <div className="pfp-wrapper" ref={wrapperRef}>
-                {/* Base image */}
-                <img src="/icons/new-pfp.png" alt="pfp" className="pfp" />
 
-                {/* Reveal image */}
-                <div className="pfp-reveal" ref={revealRef}></div>
+              {/* Bio with Typewriter Scanner Text */}
+              <p className="c3">
+                <AnimatedCursorText /> focused on building reliable, scalable, and
+                distributed backend systems.
+              </p>
 
-                {/* Rotating disc */}
-                <div className="rotating-disc">
-                  <span className="arc arc1"></span>
-                  <span className="arc arc2"></span>
-                  <span className="arc arc3"></span>
-                  <span className="arc arc4"></span>
+              {/* Specialization & Experience Highlights */}
+              <div className="hero-highlights">
+                <div className="hero-highlight c4">
+                  <span className="highlight-badge">
+                    <span className="highlight-icon">🚀</span>
+                    <span>
+                      Specializing in Backend Engineering{" "}
+                      <span className="tech-stack-preview">
+                        (Go &bull; SQL &bull; Redis &bull; Kafka &bull; WebSockets)
+                      </span>
+                    </span>
+                  </span>
+                </div>
+
+                <div className="hero-highlight c5">
+                  <span className="highlight-badge">
+                    <span className="highlight-icon">⚡</span>
+                    <span>
+                      Software Development Engineer at{" "}
+                      <a
+                        className="c6"
+                        href="https://www.jiocx.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <strong>Jio Platforms Limited</strong>
+                        <span className="external-arrow">↗</span>
+                      </a>
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>
-            <div className="c3">
-              <AnimatedCursorText /> focused on
-              creating reliable, scalable, and high-performance solutions.
-            </div>
-            <div className="c4">
-              🚀 Currently specializing in Backend (Go / SQL / Node.js / Python)
-            </div>
-            <div className="c5">
-              ⚡ Software Developer Engineer at{" "}
-              <a className="c6" href="https://www.jiocx.com/" target="_blank">
-                <strong>Reliance - Jio</strong>
-              </a>
+
+            {/* Right Media Column: Profile Photo */}
+            <div className="hero-right">
+              {/* Profile Photo with 5 Multi-Directional Orbital Rings and Batman Hover Reveal */}
+              <div className="pfp-wrapper">
+                {/* 5 Concentric Orbital Rings (Alternating Clockwise & Counter-Clockwise) */}
+                <div className="orbital-system" aria-hidden="true">
+                  <span className="orbital-ring ring-1"></span>
+                  <span className="orbital-ring ring-2"></span>
+                  <span className="orbital-ring ring-3"></span>
+                  <span className="orbital-ring ring-4"></span>
+                  <span className="orbital-ring ring-5"></span>
+                </div>
+
+                {/* Portrait Frame & Batman Easter Egg */}
+                <div
+                  className="pfp-frame"
+                  ref={wrapperRef}
+                  title="Adnan Khan • Hover to reveal alter ego"
+                >
+                  <img
+                    src="/icons/new-pfp.png"
+                    alt="Adnan Khan"
+                    className="pfp"
+                  />
+                  <div
+                    className="pfp-reveal"
+                    ref={revealRef}
+                    aria-hidden="true"
+                  ></div>
+                  {/* Periodic Radar Sweep Teaser (Autonomous Alter-Ego Glimpse) */}
+                  <div className="pfp-teaser" aria-hidden="true">
+                    <span className="teaser-beam"></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Social Links & Action Pills */}
           <div className="lower-bar">
             <div className="lower-tabs">
               <a
@@ -337,9 +488,10 @@ export default function Home({
                 href="https://github.com/adnankhan003"
                 target="_blank"
                 rel="noopener noreferrer"
+                title="GitHub Profile"
               >
-                <img src="/icons/github.svg" alt="" />
-                <span style={{ color: "#018790" }}>Github</span>
+                <img src="/icons/github.svg" alt="" aria-hidden="true" />
+                <span>GitHub</span>
               </a>
 
               <a
@@ -347,9 +499,10 @@ export default function Home({
                 href="https://www.linkedin.com/in/adnan-khan-31ab14198/"
                 target="_blank"
                 rel="noopener noreferrer"
+                title="LinkedIn Profile"
               >
-                <img src="/icons/linkedin.svg" alt="" />
-                <span style={{ color: "#018790" }}>LinkedIn</span>
+                <img src="/icons/linkedin.svg" alt="" aria-hidden="true" />
+                <span>LinkedIn</span>
               </a>
 
               <a
@@ -357,17 +510,21 @@ export default function Home({
                 href="mailto:adnankhannew777@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                title="Send an Email"
               >
-                <img src="/icons/email.svg" alt="" />
-                <span style={{ color: "#018790" }}>Email</span>
+                <img src="/icons/email.svg" alt="" aria-hidden="true" />
+                <span>Email</span>
               </a>
             </div>
           </div>
+
+          {/* Location & Status Pill */}
           <div className="loc-container">
-            <img src="/icons/location.svg" alt="location" />
+            <span className="status-dot"></span>
+            <img src="/icons/location.svg" alt="Location" />
             <span>Navi Mumbai, Maharashtra</span>
           </div>
-        </div>
+        </main>
       </div>
     </>
   );
